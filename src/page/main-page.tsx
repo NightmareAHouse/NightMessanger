@@ -1,5 +1,5 @@
 import {Box, Grid} from "@mui/material"
-import ChatList from "../component/chat-list/chatList";
+import ChatList from "../component/chat-list/ChatList";
 
 const MainPage = () => {
     return (
