@@ -12,14 +12,14 @@ const ChatList = () => {
 
             }}>
                 <Grid container minHeight={40} padding={1}>
-                    <Grid xs={2}>
+                    <Grid xs={1.8}>
                         <Avatar>T</Avatar>
                     </Grid>
                     <Box>
-                        <Grid xs={15} fontSize={15}>
+                        <Grid xs={10} fontSize={15}>
                             Test testovich
                         </Grid>
-                        <Grid xs={15} fontSize={15}>
+                        <Grid xs={12} fontSize={15}>
                             Hi! How are you?
                         </Grid>
                     </Box>
@@ -35,14 +35,14 @@ const ChatList = () => {
 
             }}>
                 <Grid container minHeight={40} padding={1}>
-                    <Grid xs={2}>
+                    <Grid xs={1.8}>
                         <Avatar>V</Avatar>
                     </Grid>
                     <Box>
-                        <Grid xs={15} fontSize={15}>
+                        <Grid xs={10} fontSize={15}>
                             Viktor testovich
                         </Grid>
-                        <Grid xs={15} fontSize={15}>
+                        <Grid xs={12} fontSize={15}>
                             Hi! Do you have money?
                         </Grid>
                     </Box>

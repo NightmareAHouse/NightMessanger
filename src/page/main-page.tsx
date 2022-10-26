@@ -1,5 +1,6 @@
-import {Box, Grid} from "@mui/material"
+import {Grid} from "@mui/material"
 import ChatList from "../component/chat-list/ChatList";
+import Chat from "../component/chat/Chat";
 
 const MainPage = () => {
     return (
@@ -8,7 +9,7 @@ const MainPage = () => {
                 <ChatList />
             </Grid>
             <Grid xs={10} bgcolor={'#151e2c'}>
-                <Box>chat</Box>
+                <Chat />
             </Grid>
         </Grid>
     )
