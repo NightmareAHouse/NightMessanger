@@ -1,4 +1,4 @@
-import {Avatar, Box, Grid, IconButton, InputBase, Paper, Stack} from "@mui/material"
+import {Avatar, Box, Grid, IconButton, InputBase, Paper, Stack, Typography} from "@mui/material"
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
 import AttachFileOutlinedIcon from '@mui/icons-material/AttachFileOutlined';
 import SendOutlinedIcon from '@mui/icons-material/SendOutlined';
@@ -15,16 +15,14 @@ interface ChatInterface {
 }
 
 const Chat = () => {
-    const Item = styled(Paper)(({theme}) => ({
+    const Item = styled(Typography)(({theme}) => ({
         backgroundColor: '#283f5a',
-        width: 175,
+        maxWidth: 500,
         ...theme.typography.body2,
         padding: theme.spacing(1),
-        textAlign: 'start',
         color: 'gray',
-        marginTop: 0,
         marginLeft: 15,
-        marginRight: 15,
+        marginRight: 15
     }));
 
     const [chatMessageData, setChatMessageData] = useState<ChatInterface[]>([{
@@ -35,11 +33,36 @@ const Chat = () => {
     }])
     const [message, setMessage] = useState<string>("");
 
-    const addMessageInChat = () => {
+    function hz(inputStringArr: string) {
+        let word: string = '';
+        const stringArr = inputStringArr.split(" ");
+        stringArr.forEach((e) => {
+            if (e.length > 56) {
+                let wordArr = e.split('');
+                wordArr.forEach((e, index) => {
+                    if (index === 56) {
+                        word += ` ${e}`
+                    } else {
+                        word += e
+                    }
+                })
+            } else {
+                word += `${e} `
+            }
+        })
+
+        return word
+    }
+
+    const addMessageInChat = (message: string) => {
+        const test = hz(message);
+        const test2 = hz(test);
+        const test3 = hz(test2);
+        const test4 = hz(test3);
         setChatMessageData(prevState => [...prevState, {
             messageId: (chatMessageData.length - 1),
             messageSender: "Kirills Meletins",
-            message: message,
+            message: test4,
             userMessage: true,
         }])
 
@@ -70,34 +93,35 @@ const Chat = () => {
                 </Paper>
             </Box>
 
-            <Box minHeight={'88vh'}>
+            <Box maxHeight={'88vh'} height={'100%'} sx={{overflow: "hidden", overflowY: "scroll"}}>
                 <Stack>
-                    {chatMessageData.map((e, index) => {
+                    {chatMessageData.map((e) => {
                         if (e.userMessage) {
                             return (
-                                <>
-                                    <Grid container minHeight={40} justifyContent={'end'} marginTop={'5px'} padding={1}>
-                                        <Grid>
-                                            <Item>{e.message}</Item>
-                                        </Grid>
-                                        <Grid>
-                                            <Avatar>{e.messageSender.charAt(0)}</Avatar>
-                                        </Grid>
+                                <Grid container justifyContent={'end'} wrap="nowrap"
+                                      marginTop={'5px'} padding={1}>
+                                    <Grid sx={{alignSelf: 'center'}} item>
+                                        <Item>
+                                            <Typography>{e.message}</Typography>
+                                        </Item>
                                     </Grid>
-                                </>
+                                    <Grid item>
+                                        <Avatar>{e.messageSender.charAt(0)}</Avatar>
+                                    </Grid>
+                                </Grid>
                             )
                         } else {
                             return (
-                                <>
-                                    <Grid container minHeight={40} marginTop={'5px'} padding={1}>
-                                        <Grid>
-                                            <Avatar>{e.messageSender.charAt(0)}</Avatar>
-                                        </Grid>
-                                        <Grid>
-                                            <Item>{e.message}</Item>
-                                        </Grid>
+                                <Grid container wrap="nowrap" marginTop={'5px'} padding={1}>
+                                    <Grid>
+                                        <Avatar>{e.messageSender.charAt(0)}</Avatar>
                                     </Grid>
-                                </>
+                                    <Grid sx={{alignSelf: 'center'}}>
+                                        <Item>
+                                            <Typography>{e.message}</Typography>
+                                        </Item>
+                                    </Grid>
+                                </Grid>
                             )
                         }
                     })}
@@ -115,8 +139,8 @@ const Chat = () => {
                             setMessage(e.target.value);
                         }}
                         onKeyDown={(e) => {
-                            if(e.key === 'Enter') {
-                                addMessageInChat()
+                            if (e.key === 'Enter') {
+                                addMessageInChat(message)
                             }
                         }}
                         placeholder="Wrote message..."
@@ -125,7 +149,9 @@ const Chat = () => {
                     <IconButton color="primary" sx={{p: '10px'}} aria-label="directions">
                         <SentimentSatisfiedAltIcon/>
                     </IconButton>
-                    <IconButton onClick={addMessageInChat} color="primary" sx={{p: '10px'}} aria-label="directions">
+                    <IconButton onClick={() => {
+                        addMessageInChat(message)
+                    }} color="primary" sx={{p: '10px'}} aria-label="directions">
                         <SendOutlinedIcon/>
                     </IconButton>
                 </Paper>
