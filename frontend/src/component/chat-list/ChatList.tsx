@@ -17,7 +17,7 @@ const ChatList = () => {
                     </Grid>
                     <Box>
                         <Grid xs={10} fontSize={15}>
-                            Test testovich
+                            Test Testovich
                         </Grid>
                         <Grid xs={12} fontSize={15}>
                             Hi! How are you?
@@ -40,7 +40,7 @@ const ChatList = () => {
                     </Grid>
                     <Box>
                         <Grid xs={10} fontSize={15}>
-                            Viktor testovich
+                            Viktor Testovich
                         </Grid>
                         <Grid xs={12} fontSize={15}>
                             Hi! Do you have money?
