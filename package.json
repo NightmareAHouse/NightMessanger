@@ -10,7 +10,7 @@
   },
   "scripts": {
     "server": "cd ./server && npm install && npm run dev",
-    "client": "cd ./frontend && npm install && npm run start",
+    "client": "cd ./frontend && npm install && npm run build",
     "start": "concurrently \"npm run server\" \"npm run client\""
   }
 }
