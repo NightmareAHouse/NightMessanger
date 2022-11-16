@@ -10,9 +10,16 @@ db.defaults({
             messageId: '1',
             userId: '1',
             senderName: 'Test Testovich',
-            messageText: 'Hi! How are you?',
+            messageText: 'Hi!',
             createdAt: '2021-01-14'
         },
+        {
+            messageId: '2',
+            userId: '1',
+            senderName: 'Test Testovich',
+            messageText: "How are you?",
+            createdAt: '2021-01-14'
+        }
     ]
 }).write();
 
@@ -24,10 +31,10 @@ module.exports = (io, socket) => {
     }
 
     const addMessage = (message) => {
+        console.log(message);
         db.get('messages')
             .push({
                 messageId: nanoid(8),
-                createdAt: new Date(),
                 ...message
             }).write()
 

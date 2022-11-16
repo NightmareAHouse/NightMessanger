@@ -12,7 +12,7 @@ const registerMessageHandler = require('./handler/messageHandler.js');
 const registerUserHandler = require('./handler/userHandlers.js');
 
 const onConnection = (socket) => {
-    console.log('Use connected');
+    console.log('User connected');
 
     const { roomId } = socket.handshake.query;
 

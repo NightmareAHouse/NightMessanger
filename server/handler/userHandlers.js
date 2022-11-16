@@ -15,6 +15,12 @@ module.exports = (io, socket) => {
             users[userId].online = true
         }
 
+        if(users[userId].username !== username) {
+            users[userId].username = username;
+        }
+
+        console.log(users);
+
         getUsers();
     }
 

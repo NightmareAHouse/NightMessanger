@@ -1,6 +1,6 @@
 {
   "name": "night-messanger",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.10.4",
@@ -26,6 +26,7 @@
     "socket.io-client": "^4.5.3",
     "styled-components": "^5.3.6"
   },
+  "proxy": "http://localhost:5000",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

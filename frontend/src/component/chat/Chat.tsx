@@ -6,15 +6,17 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import SettingsSharpIcon from '@mui/icons-material/SettingsSharp';
 import {styled} from '@mui/material/styles';
 import {useState} from "react";
+import {useLocalStorage} from "../../hooks/useLocalStorage";
 
-interface ChatInterface {
-    messageId: number,
-    messageSender: string,
-    message: string,
-    userMessage: boolean
-}
+const Chat = (props: {
+    chatName: string,
+    firstMessage: string,
+    messages: any,
+}) => {
+    const {messages} = props;
 
-const Chat = () => {
+    console.log(messages)
+
     const Item = styled(Typography)(({theme}) => ({
         backgroundColor: '#283f5a',
         maxWidth: 500,
@@ -25,22 +27,17 @@ const Chat = () => {
         marginRight: 15
     }));
 
-    const [chatMessageData, setChatMessageData] = useState<ChatInterface[]>([{
-        messageId: 0,
-        message: "Hi! How are you?",
-        messageSender: 'Test Testovich',
-        userMessage: false
-    }])
+    const [username] = useLocalStorage('username');
     const [message, setMessage] = useState<string>("");
 
-    function hz(inputStringArr: string) {
+    function editLongOneWord(inputStringArr: string) {
         let word: string = '';
         const stringArr = inputStringArr.split(" ");
         stringArr.forEach((e) => {
-            if (e.length > 56) {
+            if (e.length > 54) {
                 let wordArr = e.split('');
                 wordArr.forEach((e, index) => {
-                    if (index === 56) {
+                    if (index === 54) {
                         word += ` ${e}`
                     } else {
                         word += e
@@ -55,16 +52,11 @@ const Chat = () => {
     }
 
     const addMessageInChat = (message: string) => {
-        const test = hz(message);
-        const test2 = hz(test);
-        const test3 = hz(test2);
-        const test4 = hz(test3);
-        setChatMessageData(prevState => [...prevState, {
-            messageId: (chatMessageData.length - 1),
-            messageSender: "Kirills Meletins",
-            message: test4,
-            userMessage: true,
-        }])
+        const test = editLongOneWord(message);
+        const test2 = editLongOneWord(test);
+        const test3 = editLongOneWord(test2);
+        const test4 = editLongOneWord(test3);
+        messages.sendMessage({messageText: test4, senderName: username})
 
         setMessage("")
     }
@@ -95,18 +87,18 @@ const Chat = () => {
 
             <Box maxHeight={'88vh'} height={'100%'} sx={{overflow: "hidden", overflowY: "scroll"}}>
                 <Stack>
-                    {chatMessageData.map((e) => {
-                        if (e.userMessage) {
+                    {messages.messages.map((e: any) => {
+                        if (e.currentUser) {
                             return (
                                 <Grid container justifyContent={'end'} wrap="nowrap"
                                       marginTop={'5px'} padding={1}>
                                     <Grid sx={{alignSelf: 'center'}} item>
                                         <Item>
-                                            <Typography>{e.message}</Typography>
+                                            <Typography>{e.messageText}</Typography>
                                         </Item>
                                     </Grid>
                                     <Grid item>
-                                        <Avatar>{e.messageSender.charAt(0)}</Avatar>
+                                        <Avatar>{e.senderName.charAt(0)}</Avatar>
                                     </Grid>
                                 </Grid>
                             )
@@ -114,11 +106,11 @@ const Chat = () => {
                             return (
                                 <Grid container wrap="nowrap" marginTop={'5px'} padding={1}>
                                     <Grid>
-                                        <Avatar>{e.messageSender.charAt(0)}</Avatar>
+                                        <Avatar>{e.senderName.charAt(0)}</Avatar>
                                     </Grid>
                                     <Grid sx={{alignSelf: 'center'}}>
                                         <Item>
-                                            <Typography>{e.message}</Typography>
+                                            <Typography>{e.messageText}</Typography>
                                         </Item>
                                     </Grid>
                                 </Grid>
