@@ -8,7 +8,7 @@ import {useBeforeUnload} from './useBeforeUnload'
 
 // адрес сервера
 // требуется перенаправление запросов - смотрите ниже
-const SERVER_URL = 'http://localhost:5000'
+const SERVER_URL = 'http://113.30.189.131:5000'
 
 // хук принимает название комнаты
 export const useChat = (roomId) => {
