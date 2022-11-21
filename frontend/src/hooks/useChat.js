@@ -5,10 +5,11 @@ import {nanoid} from 'nanoid'
 // наши хуки
 import {useLocalStorage} from './useLocalStorage'
 import {useBeforeUnload} from './useBeforeUnload'
+import {API_URL} from "../app/Config";
 
 // адрес сервера
 // требуется перенаправление запросов - смотрите ниже
-const SERVER_URL = 'http://113.30.189.131:5000'
+const SERVER_URL = API_URL
 
 // хук принимает название комнаты
 export const useChat = (roomId) => {

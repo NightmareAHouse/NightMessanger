@@ -9,13 +9,9 @@ import {useState} from "react";
 import {useLocalStorage} from "../../hooks/useLocalStorage";
 
 const Chat = (props: {
-    chatName: string,
-    firstMessage: string,
     messages: any,
 }) => {
-    const {messages} = props;
-
-    console.log(messages)
+    const { messages } = props;
 
     const Item = styled(Typography)(({theme}) => ({
         backgroundColor: '#283f5a',
