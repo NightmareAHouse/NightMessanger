@@ -8,6 +8,7 @@ COPY ./frontend .
 # ==== BUILD =====
 # Install dependencies (npm ci makes sure the exact versions in the lockfile gets installed)
 RUN npm i --legacy-peer-deps
+
 RUN npm run build
 # Set the env to "production"
 ENV NODE_ENV production
