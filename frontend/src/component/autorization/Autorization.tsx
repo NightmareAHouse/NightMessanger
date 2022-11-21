@@ -4,7 +4,7 @@ import {useLocalStorage} from "../../hooks/useLocalStorage";
 const Autorization = (props: {
     closeModal: () => void;
 }) => {
-    const [username, setUsername] = useLocalStorage('username', 'John');
+    const [userName, setUsername] = useLocalStorage('userName', 'John');
     const { closeModal } = props;
 
     const handleChangeName = (e: any) => {
@@ -16,7 +16,7 @@ const Autorization = (props: {
         closeModal();
     }
 
-    const trimmed = username.trim();
+    const trimmed = userName.trim();
 
     return (
         <>
@@ -25,8 +25,8 @@ const Autorization = (props: {
                     required
                     id="outlined-required"
                     label="Username"
-                    value={username}
-                    defaultValue={username}
+                    value={userName}
+                    defaultValue={userName}
                     onChange={handleChangeName}
                 />
 

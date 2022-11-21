@@ -1,7 +1,7 @@
 import {Box, Grid} from "@mui/material"
 import ChatList from "../component/chat-list/ChatList";
 import Chat from "../component/chat/Chat";
-import {useRef, useState} from "react";
+import {useState} from "react";
 import Autorization from "../component/autorization/Autorization";
 import {useChat} from "../hooks/useChat";
 
@@ -18,8 +18,6 @@ const style = {
 };
 
 const MainPage = () => {
-    const userChatName = useRef('Test Testovich');
-    const firstMessage = useRef('Hi! How are you?');
     const messages = useChat(0);
 
     const [open, setOpen] = useState(true);
@@ -37,10 +35,10 @@ const MainPage = () => {
                 <>
                     <Grid container sx={{minHeight: '100vh'}}>
                         <Grid xs={2} bgcolor={'#212836'}>
-                            <ChatList/>
+                            <ChatList messages={messages}/>
                         </Grid>
                         <Grid xs={10} bgcolor={'#151e2c'}>
-                            <Chat chatName={userChatName.current} firstMessage={firstMessage.current} messages={messages}/>
+                            <Chat messages={messages}/>
                         </Grid>
                     </Grid>
                 </>

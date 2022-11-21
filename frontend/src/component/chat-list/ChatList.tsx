@@ -1,53 +1,39 @@
 import {Avatar, Box, Grid} from "@mui/material";
 
-const ChatList = () => {
+const ChatList = (props: {
+    messages: any,
+}) => {
+    const {messages} = props;
+
+    const activeUsers = Object.values(messages.users)
+
     return (
         <>
-            <Box sx={{
-                cursor: "pointer",
-                '&:hover': {
-                    backgroundColor: '#263552',
-                    transitionDuration: '0.5s'
-                }
-
-            }}>
-                <Grid container minHeight={40} padding={1}>
-                    <Grid xs={1.8}>
-                        <Avatar>T</Avatar>
-                    </Grid>
-                    <Box>
-                        <Grid xs={10} fontSize={15}>
-                            Test Testovich
-                        </Grid>
-                        <Grid xs={12} fontSize={15}>
-                            Hi! How are you?
-                        </Grid>
-                    </Box>
-                </Grid>
-            </Box>
-
-            <Box sx={{
-                cursor: "pointer",
-                '&:hover': {
-                    backgroundColor: '#263552',
-                    transitionDuration: '0.5s'
-                }
-
-            }}>
-                <Grid container minHeight={40} padding={1}>
-                    <Grid xs={1.8}>
-                        <Avatar>V</Avatar>
-                    </Grid>
-                    <Box>
-                        <Grid xs={10} fontSize={15}>
-                            Viktor Testovich
-                        </Grid>
-                        <Grid xs={12} fontSize={15}>
-                            Hi! Do you have money?
+            {activeUsers.map((e: any) => {
+                return (
+                    <Box sx={{
+                        cursor: "pointer",
+                        '&:hover': {
+                            backgroundColor: '#263552',
+                            transitionDuration: '0.5s'
+                        }
+                    }}>
+                        <Grid container minHeight={40} padding={1}>
+                            <Grid xs={1.8}>
+                                <Avatar>{e.username.charAt(0)}</Avatar>
+                            </Grid>
+                            <Box>
+                                <Grid xs={12} fontSize={15}>
+                                    {e.username}
+                                </Grid>
+                                <Grid xs={10} fontSize={15}>
+                                    {e.online ? "online" : "offline"}
+                                </Grid>
+                            </Box>
                         </Grid>
                     </Box>
-                </Grid>
-            </Box>
+                )
+            })}
         </>
     )
 }

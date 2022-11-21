@@ -1,6 +1,6 @@
 const users = {
-    1: {userName: "Test Testovich", online: true},
-    2: {userName: "Viktor Testovich", online: false}
+    1: {username: "Test Testovich", online: true},
+    2: {username: "Viktor Testovich", online: false}
 }
 
 module.exports = (io, socket) => {
