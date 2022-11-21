@@ -12,7 +12,7 @@ services:
       - "5000:5000"
 
   react-app:
-    container_name: react_app
+    image: nightmareahouse/nightmessanger
     restart: on-failure
     links:
       - "ws"
