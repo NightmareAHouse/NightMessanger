@@ -20,7 +20,7 @@ services:
       context: .
       dockerfile: frontend/Dockerfile
     volumes:
-      - ./src:/app/src
+      - ./frontend:/app/src
     ports:
       - "3000:3000"
     depends_on:
