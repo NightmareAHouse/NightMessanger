@@ -3,6 +3,7 @@
 FROM node:alpine
 # Set the working directory to /app inside the container
 WORKDIR /app/frontend
+RUN npm i -g npm@9.1.2
 # Copy app files
 COPY ./frontend .
 # ==== BUILD =====
