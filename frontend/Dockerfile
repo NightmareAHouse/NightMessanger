@@ -3,7 +3,7 @@ FROM node:alpine as build
 WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
 
-COPY ../frontend .
+COPY ./frontend .
 
 RUN npm install --legacy-peer-deps
 
