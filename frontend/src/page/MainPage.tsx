@@ -23,6 +23,8 @@ const MainPage = () => {
     const [open, setOpen] = useState(true);
     const handleClose = () => setOpen(false);
 
+    console.log(messages);
+
     return (
         <>
             {open ? (
