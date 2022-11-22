@@ -25,7 +25,7 @@ ENV PATH /app/node_modules/.bin:$PATH
 
 COPY frontend .
 
-RUN npm install --legacy-peer-deps
+RUN npm install
 
 RUN npm run build
 
