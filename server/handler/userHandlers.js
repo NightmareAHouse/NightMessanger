@@ -16,7 +16,7 @@ module.exports = (io, socket) => {
         }
 
         console.log(username);
-        if(users[userId].username !== username && users[userId].username === undefined) {
+        if (users[userId].username !== username && users[userId].username === undefined) {
             users[userId].username = username;
         }
 
@@ -26,8 +26,10 @@ module.exports = (io, socket) => {
     }
 
     const removeUser = (userId) => {
-        users[userId].online = false
-        getUsers();
+        if (users[userId].online !== undefined) {
+            users[userId].online = false
+            getUsers();
+        }
     }
 
     socket.on('user:get', getUsers)
