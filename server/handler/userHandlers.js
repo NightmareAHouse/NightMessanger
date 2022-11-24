@@ -10,8 +10,12 @@ module.exports = (io, socket) => {
 
     const addUser = ({username, userId}) => {
         console.log(username + " username")
+        let userName = username;
+        if(userName === "undefined") {
+            userName = "qwer";
+        }
         if (!users[userId]) {
-            users[userId] = {username, online: true}
+            users[userId] = {userName, online: true}
         } else {
             users[userId].online = true
         }
