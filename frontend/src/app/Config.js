@@ -1,3 +1,3 @@
-let API_URL = "http://185.229.224.9:5000";
+let API_URL = "http://185.167.97.51:5000";
 
 export { API_URL };
