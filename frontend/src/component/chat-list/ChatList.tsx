@@ -1,15 +1,17 @@
 import {Avatar, Box, Grid} from "@mui/material";
 
 const ChatList = (props: {
-    messages: any,
+    users: never[],
 }) => {
-    const {messages} = props;
+    const {users} = props;
 
-    const activeUsers = Object.values(messages.users)
+    const activeUsers = Object.values(users);
 
     return (
         <>
             {activeUsers.map((e: any) => {
+                console.log(e);
+                console.log(e.username + " " + typeof e.username);
                 return (
                     <Box sx={{
                         cursor: "pointer",
@@ -19,14 +21,14 @@ const ChatList = (props: {
                         }
                     }}>
                         <Grid container minHeight={40} padding={1}>
-                            <Grid xs={1.8}>
+                            <Grid item xs={1.8}>
                                 <Avatar>{e.username.charAt(0)}</Avatar>
                             </Grid>
                             <Box>
-                                <Grid xs={12} fontSize={15}>
+                                <Grid item xs={12} fontSize={15}>
                                     {e.username}
                                 </Grid>
-                                <Grid xs={10} fontSize={15}>
+                                <Grid item xs={10} fontSize={15}>
                                     {e.online ? "online" : "offline"}
                                 </Grid>
                             </Box>

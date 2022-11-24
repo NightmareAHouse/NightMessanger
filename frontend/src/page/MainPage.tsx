@@ -4,6 +4,7 @@ import Chat from "../component/chat/Chat";
 import {useState} from "react";
 import Autorization from "../component/autorization/Autorization";
 import {useChat} from "../hooks/useChat";
+import { ErrorBoundary } from "../component/error-boundary/ErrorBoundary";
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -23,7 +24,7 @@ const MainPage = () => {
     const [open, setOpen] = useState(true);
     const handleClose = () => setOpen(false);
 
-    console.log(messages);
+    const activeUsers = Object.values(messages.users);
 
     return (
         <>
@@ -36,10 +37,12 @@ const MainPage = () => {
             ) : (
                 <>
                     <Grid container sx={{minHeight: '100vh'}}>
-                        <Grid xs={2} bgcolor={'#212836'}>
-                            <ChatList messages={messages}/>
+                        <Grid item xs={2} bgcolor={'#212836'}>
+                            <ErrorBoundary>
+                                <ChatList users={messages.users}/>
+                            </ErrorBoundary>
                         </Grid>
-                        <Grid xs={10} bgcolor={'#151e2c'}>
+                        <Grid item xs={10} bgcolor={'#151e2c'}>
                             <Chat messages={messages}/>
                         </Grid>
                     </Grid>

@@ -62,10 +62,10 @@ const Chat = (props: {
             <Box bgcolor={'#25334e78'} minHeight={'7vh'} width={'100%'} display={'flex'}>
                 <Paper sx={{display: "flex", width: '100%', backgroundColor: '#25334e78'}}>
                     <Box padding={1} color={'white'}>
-                        <Grid xs={25} fontSize={22}>
+                        <Grid item xs={25} fontSize={22}>
                             Test Testovich
                         </Grid>
-                        <Grid xs={25} fontSize={12}>
+                        <Grid item xs={25} fontSize={12}>
                             Was online 2 hours ago
                         </Grid>
                     </Box>
@@ -88,12 +88,12 @@ const Chat = (props: {
                             return (
                                 <Grid container justifyContent={'end'} wrap="nowrap"
                                       marginTop={'5px'} padding={1}>
-                                    <Grid sx={{alignSelf: 'center'}} item>
+                                    <Grid sx={{alignSelf: 'center'}}>
                                         <Item>
                                             <Typography>{e.messageText}</Typography>
                                         </Item>
                                     </Grid>
-                                    <Grid item>
+                                    <Grid>
                                         <Avatar>{e.senderName.charAt(0)}</Avatar>
                                     </Grid>
                                 </Grid>

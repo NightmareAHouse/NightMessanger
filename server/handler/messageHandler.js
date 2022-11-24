@@ -17,7 +17,6 @@ module.exports = (io, socket) => {
     }
 
     const addMessage = (message) => {
-        console.log(message);
         db.get('messages')
             .push({
                 messageId: nanoid(8),
