@@ -4,7 +4,7 @@ import {useLocalStorage} from "../../hooks/useLocalStorage";
 const Autorization = (props: {
     closeModal: () => void;
 }) => {
-    const [userName, setUsername] = useLocalStorage('userName', 'John');
+    const [userName, setUsername] = useLocalStorage('username', 'John');
     const { closeModal } = props;
 
     const handleChangeName = (e: any) => {
