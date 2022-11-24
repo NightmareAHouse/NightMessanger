@@ -3,7 +3,6 @@ FROM node:alpine
 WORKDIR /app/server
 COPY ./server .
 
-RUN npm install
+RUN npm install --legacy-peer-deps
 
-EXPOSE 5000
 CMD ["npm", "start"]
