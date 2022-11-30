@@ -1,17 +1,26 @@
-import {Avatar, Box, Grid, IconButton, InputBase, Paper, Stack, Typography} from "@mui/material"
+import {
+    Avatar,
+    Box,
+    Grid,
+    IconButton,
+    InputBase,
+    Paper,
+    Stack,
+    Typography,
+} from "@mui/material"
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
 import AttachFileOutlinedIcon from '@mui/icons-material/AttachFileOutlined';
 import SendOutlinedIcon from '@mui/icons-material/SendOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import SettingsSharpIcon from '@mui/icons-material/SettingsSharp';
 import {styled} from '@mui/material/styles';
-import {useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {useLocalStorage} from "../../hooks/useLocalStorage";
 
 const Chat = (props: {
     messages: any,
 }) => {
-    const { messages } = props;
+    const {messages} = props;
 
     const Item = styled(Typography)(({theme}) => ({
         backgroundColor: '#283f5a',
@@ -25,6 +34,13 @@ const Chat = (props: {
 
     const [username] = useLocalStorage('username');
     const [message, setMessage] = useState<string>("");
+    const scrollRef = useRef<any>(null);
+
+    useEffect(() => {
+        if (scrollRef.current) {
+            scrollRef.current.scrollIntoView({behaviour: "smooth"});
+        }
+    }, [messages]);
 
     function editLongOneWord(inputStringArr: string) {
         let word: string = '';
@@ -52,9 +68,15 @@ const Chat = (props: {
         const test2 = editLongOneWord(test);
         const test3 = editLongOneWord(test2);
         const test4 = editLongOneWord(test3);
-        messages.sendMessage({messageText: test4, senderName: username})
+        messages.sendMessage({messageText: test4, senderName: username});
 
         setMessage("")
+    }
+
+    const test = () => {
+        if (message !== "") {
+            addMessageInChat(message)
+        }
     }
 
     return (
@@ -87,7 +109,7 @@ const Chat = (props: {
                         if (e.currentUser) {
                             return (
                                 <Grid container justifyContent={'end'} wrap="nowrap"
-                                      marginTop={'5px'} padding={1}>
+                                      ref={scrollRef} marginTop={'5px'} padding={1}>
                                     <Grid sx={{alignSelf: 'center'}}>
                                         <Item>
                                             <Typography>{e.messageText}</Typography>
@@ -100,7 +122,7 @@ const Chat = (props: {
                             )
                         } else {
                             return (
-                                <Grid container wrap="nowrap" marginTop={'5px'} padding={1}>
+                                <Grid container wrap="nowrap" marginTop={'5px'} padding={1} ref={scrollRef}>
                                     <Grid>
                                         <Avatar>{e.senderName.charAt(0)}</Avatar>
                                     </Grid>
@@ -127,7 +149,7 @@ const Chat = (props: {
                             setMessage(e.target.value);
                         }}
                         onKeyDown={(e) => {
-                            if (e.key === 'Enter') {
+                            if (e.key === 'Enter' && message !== "") {
                                 addMessageInChat(message)
                             }
                         }}
@@ -137,9 +159,7 @@ const Chat = (props: {
                     <IconButton color="primary" sx={{p: '10px'}} aria-label="directions">
                         <SentimentSatisfiedAltIcon/>
                     </IconButton>
-                    <IconButton onClick={() => {
-                        addMessageInChat(message)
-                    }} color="primary" sx={{p: '10px'}} aria-label="directions">
+                    <IconButton color="primary" onClick={test} sx={{p: '10px'}} aria-label="directions">
                         <SendOutlinedIcon/>
                     </IconButton>
                 </Paper>

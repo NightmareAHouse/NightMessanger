@@ -11,6 +11,7 @@ export const useBeforeUnload = (value) => {
             e.preventDefault();
             e.returnValue = returnValue;
         }
+        console.log(returnValue);
         return returnValue;
     }
 
@@ -18,5 +19,5 @@ export const useBeforeUnload = (value) => {
         window.addEventListener('beforeunload', handleBeforeunload)
         return () => window.removeEventListener('beforeunload', handleBeforeunload)
         // eslint-disable-next-line
-    })
+    }, [])
 }

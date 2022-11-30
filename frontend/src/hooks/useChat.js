@@ -4,8 +4,8 @@ import io from 'socket.io-client'
 import {nanoid} from 'nanoid'
 // наши хуки
 import {useLocalStorage} from './useLocalStorage'
-import {useBeforeUnload} from './useBeforeUnload'
 import {API_URL} from "../app/Config";
+import { useBeforeunload } from 'react-beforeunload';
 
 // адрес сервера
 // требуется перенаправление запросов - смотрите ниже
@@ -34,6 +34,8 @@ export const useChat = (roomId) => {
         socketRef.current = io(SERVER_URL, {
             query: {roomId}
         })
+
+        console.log(username);
 
         // отправляем событие добавления пользователя,
         // в качестве данных передаем объект с именем и id пользователя
@@ -87,7 +89,7 @@ export const useChat = (roomId) => {
     }
 
     // отправляем на сервер событие "user:leave" перед перезагрузкой страницы
-    useBeforeUnload(() => {
+    useBeforeunload(() => {
         socketRef.current.emit('user:leave', userId)
     })
 
