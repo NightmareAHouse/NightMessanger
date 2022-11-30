@@ -1,7 +1,4 @@
-const users = {
-    1: {username: "Test Testovich", online: true},
-    2: {username: "Viktor Testovich", online: false}
-}
+const users = {}
 
 module.exports = (io, socket) => {
     const getUsers = () => {
@@ -19,11 +16,10 @@ module.exports = (io, socket) => {
     }
 
     const removeUser = (userId) => {
+        console.log(users);
         console.log(users[userId]);
-        if (users[userId].online !== undefined) {
-            users[userId].online = false
-            getUsers();
-        }
+        users[userId].online = false
+        getUsers();
     }
 
     socket.on('user:get', getUsers)

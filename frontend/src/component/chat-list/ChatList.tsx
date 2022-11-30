@@ -10,8 +10,6 @@ const ChatList = (props: {
     return (
         <>
             {activeUsers.map((e: any) => {
-                console.log(e);
-                console.log(e.username + " " + typeof e.username);
                 return (
                     <Box sx={{
                         cursor: "pointer",
