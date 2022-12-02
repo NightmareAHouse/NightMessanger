@@ -9,16 +9,16 @@ const ChatList = (props: {
 
     return (
         <>
-            {activeUsers.map((e: any) => {
+            {activeUsers.map((e: any, index) => {
                 return (
-                    <Box sx={{
+                    <Box key={index.toString()} sx={{
                         cursor: "pointer",
                         '&:hover': {
                             backgroundColor: '#263552',
                             transitionDuration: '0.5s'
                         }
                     }}>
-                        <Grid container minHeight={40} padding={1}>
+                        <Grid key={index.toString()} container minHeight={40} padding={1}>
                             <Grid item xs={1.8}>
                                 <Avatar>{e.username.charAt(0)}</Avatar>
                             </Grid>

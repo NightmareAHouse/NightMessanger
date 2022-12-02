@@ -4,7 +4,7 @@ import Chat from "../component/chat/Chat";
 import {useState} from "react";
 import Autorization from "../component/autorization/Autorization";
 import {useChat} from "../hooks/useChat";
-import { ErrorBoundary } from "../component/error-boundary/ErrorBoundary";
+import {ErrorBoundary} from "../component/error-boundary/ErrorBoundary";
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -44,7 +44,9 @@ const MainPage = () => {
                             </ErrorBoundary>
                         </Grid>
                         <Grid item xs={10} bgcolor={'#151e2c'}>
-                            <Chat messages={messages}/>
+                            <ErrorBoundary>
+                                <Chat messages={messages}/>
+                            </ErrorBoundary>
                         </Grid>
                     </Grid>
                 </>

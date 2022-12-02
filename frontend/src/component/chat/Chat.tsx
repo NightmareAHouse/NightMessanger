@@ -16,6 +16,7 @@ import SettingsSharpIcon from '@mui/icons-material/SettingsSharp';
 import {styled} from '@mui/material/styles';
 import {useEffect, useRef, useState} from "react";
 import {useLocalStorage} from "../../hooks/useLocalStorage";
+import RenameChat from "./RenameChat";
 
 const Chat = (props: {
     messages: any,
@@ -34,6 +35,7 @@ const Chat = (props: {
 
     const [username] = useLocalStorage('username');
     const [message, setMessage] = useState<string>("");
+    const [open, setOpen] = useState(false);
     const scrollRef = useRef<any>(null);
 
     useEffect(() => {
@@ -41,6 +43,14 @@ const Chat = (props: {
             scrollRef.current.scrollIntoView({behaviour: "smooth"});
         }
     }, [messages]);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
 
     function editLongOneWord(inputStringArr: string) {
         let word: string = '';
@@ -73,30 +83,33 @@ const Chat = (props: {
         setMessage("")
     }
 
-    const test = () => {
+    const onClickToAddMessage = () => {
         if (message !== "") {
             addMessageInChat(message)
         }
     }
 
+    console.log(messages.chatName);
+
     return (
         <>
             <Box bgcolor={'#25334e78'} minHeight={'7vh'} width={'100%'} display={'flex'}>
                 <Paper sx={{display: "flex", width: '100%', backgroundColor: '#25334e78'}}>
-                    <Box padding={1} color={'white'}>
+                    <Box padding={1} color={'white'} alignSelf={'center'}>
                         <Grid item xs={25} fontSize={22}>
-                            Test Testovich
+                            {messages.chatName[0]}
                         </Grid>
-                        <Grid item xs={25} fontSize={12}>
-                            Was online 2 hours ago
-                        </Grid>
+                        {/*<Grid item xs={25} fontSize={12}>*/}
+                        {/*    Was online 2 hours ago*/}
+                        {/*</Grid>*/}
                     </Box>
                     <Box sx={{ml: 1, flex: 1}}/>
-                    <Box sx={{p: '8px'}}>
-                        <IconButton color="primary" aria-label="directions">
+                    <Box sx={{p: '8px'}} alignSelf={'center'}>
+                        <IconButton color="primary" onClick={handleClickOpen} aria-label="directions">
                             <SettingsSharpIcon/>
                         </IconButton>
-                        <IconButton color="primary" aria-label="directions">
+                        <RenameChat open={open} handleClose={handleClose} message={messages}/>
+                        <IconButton color="primary">
                             <SearchOutlinedIcon/>
                         </IconButton>
                     </Box>
@@ -159,7 +172,7 @@ const Chat = (props: {
                     <IconButton color="primary" sx={{p: '10px'}} aria-label="directions">
                         <SentimentSatisfiedAltIcon/>
                     </IconButton>
-                    <IconButton color="primary" onClick={test} sx={{p: '10px'}} aria-label="directions">
+                    <IconButton color="primary" onClick={onClickToAddMessage} sx={{p: '10px'}} aria-label="directions">
                         <SendOutlinedIcon/>
                     </IconButton>
                 </Paper>
