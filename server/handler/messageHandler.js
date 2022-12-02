@@ -5,8 +5,8 @@ const adapter = new FileSync('db/message.json')
 const db = low(adapter);
 
 db.defaults({
-    messages: [
-    ]
+    messages: [],
+    chatName: {name: "Group Chat"}
 }).write();
 
 module.exports = (io, socket) => {
@@ -14,6 +14,20 @@ module.exports = (io, socket) => {
         const messages = db.get('messages').values();
 
         io.in(socket.roomId).emit('messages', messages)
+    }
+
+    const getChatName = () => {
+        const chatName = db.get('chatName').values();
+
+        io.in(socket.roomId).emit('chatName', chatName)
+    }
+
+    const renameChatName = (test) => {
+        db.get('chatName')
+            .assign({name: test})
+            .write()
+
+        getChatName();
     }
 
     const addMessage = (message) => {
@@ -35,4 +49,6 @@ module.exports = (io, socket) => {
     socket.on('message:get', getMessages)
     socket.on('message:add', addMessage)
     socket.on('message:remove', removeMessage)
+    socket.on('chat:get', getChatName)
+    socket.on('chat:rename', renameChatName)
 }

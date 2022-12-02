@@ -17,6 +17,8 @@ export const useChat = (roomId) => {
     const [users, setUsers] = useState([])
     // локальное состояние для сообщений
     const [messages, setMessages] = useState([])
+    // локальное состояние для название чата
+    const [chatName, setChatName] = useState([])
 
     // создаем и записываем в локальное хранинище идентификатор пользователя
     const [userId] = useLocalStorage('userId', nanoid(8))
@@ -35,8 +37,6 @@ export const useChat = (roomId) => {
             query: {roomId}
         })
 
-        console.log(username);
-
         // отправляем событие добавления пользователя,
         // в качестве данных передаем объект с именем и id пользователя
         socketRef.current.emit('user:add', {username, userId})
@@ -45,6 +45,12 @@ export const useChat = (roomId) => {
         socketRef.current.on('users', (users) => {
             // обновляем массив пользователей
             setUsers(users)
+        })
+
+        socketRef.current.emit('chat:get')
+
+        socketRef.current.on("chatName", (chatName) => {
+            setChatName(chatName);
         })
 
         // отправляем запрос на получение сообщений
@@ -80,6 +86,10 @@ export const useChat = (roomId) => {
         })
     }
 
+    const changeChatName = (chatName) => {
+        socketRef.current.emit('chat:rename', chatName)
+    }
+
     // функция удаления сообщения по id
     // const removeMessage = (id) => {
     //     socketRef.current.emit('message:remove', id)
@@ -94,5 +104,5 @@ export const useChat = (roomId) => {
     })
 
     // хук возвращает пользователей, сообщения и функции для отправки удаления сообщений
-    return {users, messages, sendMessage, removeMessage}
+    return {users, messages, chatName, changeChatName, sendMessage, removeMessage}
 }
