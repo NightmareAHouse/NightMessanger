@@ -25,6 +25,8 @@ export const useChat = (roomId) => {
     // получаем из локального хранилища имя пользователя
     const [username] = useLocalStorage('username')
 
+    const [aboutMe] = useLocalStorage('aboutMe')
+
     // useRef() используется не только для получения доступа к DOM-элементам,
     // но и для хранения любых мутирующих значений в течение всего жизненного цикла компонента
     const socketRef = useRef(null)
@@ -39,7 +41,7 @@ export const useChat = (roomId) => {
 
         // отправляем событие добавления пользователя,
         // в качестве данных передаем объект с именем и id пользователя
-        socketRef.current.emit('user:add', {username, userId})
+        socketRef.current.emit('user:add', {username, userId, aboutMe})
 
         // обрабатываем получение списка пользователей
         socketRef.current.on('users', (users) => {
