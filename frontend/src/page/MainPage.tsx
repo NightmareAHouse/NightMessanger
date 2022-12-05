@@ -25,7 +25,6 @@ const MainPage = () => {
     const handleClose = () => setOpen(false);
 
     const activeUsers = Object.values(messages.users);
-    console.log(activeUsers)
 
     return (
         <>

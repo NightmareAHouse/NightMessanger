@@ -5,9 +5,9 @@ module.exports = (io, socket) => {
         io.in(socket.roomId).emit('users', users);
     }
 
-    const addUser = ({username, userId}) => {
+    const addUser = ({username, userId, aboutMe}) => {
         if (!users[userId]) {
-            users[userId] = {username, online: true}
+            users[userId] = {username, online: true, aboutUser: aboutMe}
         } else {
             users[userId].online = true
         }
