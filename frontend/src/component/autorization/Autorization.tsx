@@ -1,6 +1,5 @@
 import {Button, TextField } from '@mui/material';
 import {useLocalStorage} from "../../hooks/useLocalStorage";
-import {useState} from "react";
 
 const Autorization = (props: {
     closeModal: () => void;

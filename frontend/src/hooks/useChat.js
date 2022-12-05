@@ -24,7 +24,6 @@ export const useChat = (roomId) => {
     const [userId] = useLocalStorage('userId', nanoid(8))
     // получаем из локального хранилища имя пользователя
     const [username] = useLocalStorage('username')
-
     const [aboutMe] = useLocalStorage('aboutMe')
 
     // useRef() используется не только для получения доступа к DOM-элементам,
@@ -75,7 +74,7 @@ export const useChat = (roomId) => {
             // при размонтировании компонента выполняем отключение сокета
             socketRef.current.disconnect()
         }
-    }, [roomId, userId, username])
+    }, [roomId, userId, username, aboutMe])
 
     // функция отправки сообщения
     // принимает объект с текстом сообщения и именем отправителя
@@ -92,6 +91,10 @@ export const useChat = (roomId) => {
         socketRef.current.emit('chat:rename', chatName)
     }
 
+    const userRename = (username, userId, aboutMe) => {
+        socketRef.current.emit('user:rename', {username, userId, aboutMe})
+    }
+
     // функция удаления сообщения по id
     // const removeMessage = (id) => {
     //     socketRef.current.emit('message:remove', id)
@@ -106,5 +109,5 @@ export const useChat = (roomId) => {
     })
 
     // хук возвращает пользователей, сообщения и функции для отправки удаления сообщений
-    return {users, messages, chatName, changeChatName, sendMessage, removeMessage}
+    return {users, messages, chatName, changeChatName, userRename, sendMessage, removeMessage}
 }
