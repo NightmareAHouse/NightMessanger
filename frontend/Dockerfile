@@ -9,4 +9,8 @@ RUN npm install --legacy-peer-deps
 
 RUN npm run build
 
-CMD ["npx", "serve", "-s", "build"]
+FROM nginx:stable-alpine
+COPY --from=build /app/build /usr/share/nginx/html
+
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
