@@ -5,7 +5,6 @@ import {nanoid} from 'nanoid'
 // наши хуки
 import {useLocalStorage} from './useLocalStorage'
 import {API_URL} from "../app/Config";
-import { useBeforeunload } from 'react-beforeunload';
 
 // адрес сервера
 // требуется перенаправление запросов - смотрите ниже
@@ -70,8 +69,14 @@ export const useChat = (roomId) => {
             setMessages(newMessages)
         })
 
+        window.addEventListener("beforeunload", () => {
+            console.log('unload')
+            socketRef.current.emit('user:leave', userId)
+        })
+
         return () => {
             // при размонтировании компонента выполняем отключение сокета
+            window.removeEventListener('beforeunload', socketRef.current.emit('user:leave', userId))
             socketRef.current.disconnect()
         }
     }, [roomId, userId, username, aboutMe])
@@ -102,11 +107,6 @@ export const useChat = (roomId) => {
     const removeMessage = (id) => {
         socketRef.current.emit('message:remove', id)
     }
-
-    // отправляем на сервер событие "user:leave" перед перезагрузкой страницы
-    useBeforeunload(() => {
-        socketRef.current.emit('user:leave', userId)
-    })
 
     // хук возвращает пользователей, сообщения и функции для отправки удаления сообщений
     return {users, messages, chatName, changeChatName, userRename, sendMessage, removeMessage}
