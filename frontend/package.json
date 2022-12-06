@@ -1,6 +1,6 @@
 {
   "name": "night-messanger",
-  "version": "0.11.0",
+  "version": "0.12.0",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.10.4",
@@ -25,7 +25,6 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "deploy": "gh-pages -d build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

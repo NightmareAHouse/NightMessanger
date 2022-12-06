@@ -7,7 +7,7 @@ module.exports = (io, socket) => {
 
     const addUser = ({username, userId, aboutMe}) => {
         if (!users[userId]) {
-            users[userId] = {username, online: true, aboutUser: aboutMe}
+            users[userId] = {username, online: true, aboutUser: aboutMe, currentUser: false}
         } else {
             users[userId].online = true
         }
@@ -15,14 +15,19 @@ module.exports = (io, socket) => {
         getUsers();
     }
 
+    const renameUser = ({username, userId, aboutMe}) => {
+        users[userId] = {username, online: true, aboutUser: aboutMe}
+
+        getUsers();
+    }
+
     const removeUser = (userId) => {
-        console.log(users);
-        console.log(users[userId]);
         users[userId].online = false
         getUsers();
     }
 
     socket.on('user:get', getUsers)
     socket.on('user:add', addUser)
+    socket.on('user:rename', renameUser)
     socket.on('user:leave', removeUser)
 }
