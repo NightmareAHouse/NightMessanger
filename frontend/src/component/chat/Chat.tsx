@@ -4,6 +4,7 @@ import {
     Grid,
     IconButton,
     InputBase,
+    Fade,
     Paper,
     Stack,
     Typography,
@@ -17,6 +18,7 @@ import {styled} from '@mui/material/styles';
 import {useEffect, useRef, useState} from "react";
 import {useLocalStorage} from "../../hooks/useLocalStorage";
 import RenameChat from "./RenameChat";
+import EditIcon from "@mui/icons-material/Edit";
 
 const Chat = (props: {
     messages: any,
@@ -36,6 +38,7 @@ const Chat = (props: {
     const [username] = useLocalStorage('username');
     const [message, setMessage] = useState<string>("");
     const [open, setOpen] = useState(false);
+    const [showIconRename, setShowIconRename] = useState(false);
     const scrollRef = useRef<any>(null);
 
     useEffect(() => {
@@ -51,6 +54,14 @@ const Chat = (props: {
     const handleClose = () => {
         setOpen(false);
     };
+
+    const showRenameChatIcon = () => {
+        setShowIconRename(true)
+    }
+
+    const hideRenameChatIcon = () => {
+        setShowIconRename(false);
+    }
 
     function editLongOneWord(inputStringArr: string) {
         let word: string = '';
@@ -89,23 +100,26 @@ const Chat = (props: {
         }
     }
 
-    console.log(messages.chatName);
-
     return (
         <>
             <Box bgcolor={'#25334e78'} minHeight={'7vh'} width={'100%'} display={'flex'}>
                 <Paper sx={{display: "flex", width: '100%', backgroundColor: '#25334e78'}}>
                     <Box padding={1} color={'white'} alignSelf={'center'}>
-                        <Grid item xs={25} fontSize={22}>
+                        <Grid item xs={25} fontSize={22} onMouseOver={showRenameChatIcon}
+                              onMouseLeave={hideRenameChatIcon} sx={{cursor: "pointer"}}>
                             {messages.chatName[0]}
+                            <Fade in={showIconRename}>
+                                <IconButton color="inherit" onClick={handleClickOpen}
+                                            sx={{position: 'absolute', marginLeft: '5px', width: 15, height: 15}}
+                                            aria-label="directions">
+                                    <EditIcon sx={{width: 15, height: 15}}/>
+                                </IconButton>
+                            </Fade>
                         </Grid>
-                        {/*<Grid item xs={25} fontSize={12}>*/}
-                        {/*    Was online 2 hours ago*/}
-                        {/*</Grid>*/}
                     </Box>
                     <Box sx={{ml: 1, flex: 1}}/>
                     <Box sx={{p: '8px'}} alignSelf={'center'}>
-                        <IconButton color="primary" onClick={handleClickOpen} aria-label="directions">
+                        <IconButton color="primary" aria-label="directions">
                             <SettingsSharpIcon/>
                         </IconButton>
                         <RenameChat open={open} handleClose={handleClose} message={messages}/>
@@ -166,7 +180,7 @@ const Chat = (props: {
                                 addMessageInChat(message)
                             }
                         }}
-                        placeholder="Wrote message..."
+                        placeholder="Write message..."
                         sx={{ml: 1, flex: 1, color: "white"}}
                     />
                     <IconButton color="primary" sx={{p: '10px'}} aria-label="directions">

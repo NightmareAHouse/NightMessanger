@@ -34,7 +34,7 @@ const RenameChat = (props: {
             </DialogTitle>
             <DialogContent>
                 <DialogContentText>
-                    <TextField id="outlined-basic" label="Outlined" variant="outlined" value={chatName} onChange={(e) => {
+                    <TextField sx={{marginTop: 0.7}} label="Chat Name" variant="outlined" value={chatName} onChange={(e) => {
                         setChatName(e.target.value);
                     }}/>
                 </DialogContentText>

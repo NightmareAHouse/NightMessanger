@@ -35,6 +35,8 @@ const Autorization = (props: {
                     onChange={handleChangeName}
                 />
 
+                <div style={{margin: 5}} />
+
                 <TextField
                     required
                     id="outlined-required"
