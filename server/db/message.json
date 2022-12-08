@@ -1,5 +1,12 @@
 {
-  "messages": [],
+  "messages": [
+    {
+      "messageId": "ScKh_0QZ",
+      "userId": "rU2LDw0d",
+      "messageText": "1f6001f603    ",
+      "senderName": "Jack the Ripper!"
+    }
+  ],
   "chatName": {
     "name": "Group Chat"
   }
