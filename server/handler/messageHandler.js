@@ -46,9 +46,16 @@ module.exports = (io, socket) => {
         getMessages();
     }
 
+    const clearChatMessages = () => {
+        db.get('messages').remove().write([]);
+
+        getMessages();
+    }
+
     socket.on('message:get', getMessages)
     socket.on('message:add', addMessage)
     socket.on('message:remove', removeMessage)
     socket.on('chat:get', getChatName)
     socket.on('chat:rename', renameChatName)
+    socket.on('chat:clearChatMessages', clearChatMessages)
 }
