@@ -47,20 +47,18 @@ const Chat = (props: {
         }
     }, [messages]);
 
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
+    const handleClickOpen = () => setOpen(true);
 
-    const handleClose = () => {
-        setOpen(false);
-    };
+    const handleClose = () => setOpen(false);
 
-    const showRenameChatIcon = () => {
-        setShowIconRename(true)
-    }
+    const showRenameChatIcon = () => setShowIconRename(true)
 
-    const hideRenameChatIcon = () => {
-        setShowIconRename(false);
+    const hideRenameChatIcon = () => setShowIconRename(false);
+
+    const onClickToAddMessage = () => {
+        if (message !== "") {
+            addMessageInChat(message)
+        }
     }
 
     function editLongOneWord(inputStringArr: string) {
@@ -92,12 +90,6 @@ const Chat = (props: {
         messages.sendMessage({messageText: test4, senderName: username});
 
         setMessage("")
-    }
-
-    const onClickToAddMessage = () => {
-        if (message !== "") {
-            addMessageInChat(message)
-        }
     }
 
     return (

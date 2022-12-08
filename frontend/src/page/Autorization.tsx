@@ -1,12 +1,23 @@
-import {Button, TextField } from '@mui/material';
-import {useLocalStorage} from "../../hooks/useLocalStorage";
+import {Box, Button, TextField} from '@mui/material';
+import {useLocalStorage} from "../hooks/useLocalStorage";
+import {useNavigate} from "react-router-dom";
 
-const Autorization = (props: {
-    closeModal: () => void;
-}) => {
+const style = {
+    position: 'absolute' as 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px',
+    boxShadow: 24,
+    p: 4,
+};
+
+const Autorization = () => {
     const [userName, setUsername] = useLocalStorage('username', 'John');
-    const [aboutMe, setAboutMe] = useLocalStorage("aboutMe", "")
-    const { closeModal } = props;
+    const [aboutMe, setAboutMe] = useLocalStorage("aboutMe", "");
+    const navigate = useNavigate();
 
     const handleChangeName = (e: any) => {
         setUsername(e.target.value)
@@ -18,13 +29,13 @@ const Autorization = (props: {
 
     const handleSubmit = (e: any) => {
         e.preventDefault();
-        closeModal();
+        navigate("/chat")
     }
 
     const trimmed = userName.trim();
 
     return (
-        <>
+        <Box sx={style}>
             <div style={{textAlign: "center", display: 'grid'}}>
                 <TextField
                     required
@@ -52,7 +63,7 @@ const Autorization = (props: {
                     </Button>
                 )}
             </div>
-        </>
+        </Box>
     )
 }
 
