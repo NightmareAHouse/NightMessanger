@@ -6,8 +6,10 @@ import {
     InputBase,
     Fade,
     Paper,
+    Menu,
     Stack,
     Typography,
+    MenuItem,
 } from "@mui/material"
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
 import AttachFileOutlinedIcon from '@mui/icons-material/AttachFileOutlined';
@@ -38,8 +40,11 @@ const Chat = (props: {
     const [username] = useLocalStorage('username');
     const [message, setMessage] = useState<string>("");
     const [open, setOpen] = useState(false);
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const [showIconRename, setShowIconRename] = useState(false);
     const scrollRef = useRef<any>(null);
+
+    const openMenu = Boolean(anchorEl);
 
     useEffect(() => {
         if (scrollRef.current) {
@@ -48,17 +53,19 @@ const Chat = (props: {
     }, [messages]);
 
     const handleClickOpen = () => setOpen(true);
-
     const handleClose = () => setOpen(false);
-
     const showRenameChatIcon = () => setShowIconRename(true)
-
     const hideRenameChatIcon = () => setShowIconRename(false);
-
+    const handleOpenMenu = (event: React.MouseEvent<HTMLElement>) => setAnchorEl(event.currentTarget)
+    const handleCloseMenu = () => setAnchorEl(null)
     const onClickToAddMessage = () => {
         if (message !== "") {
             addMessageInChat(message)
         }
+    }
+    const clearChatMessages = () => {
+        messages.clearChatMessages();
+        setAnchorEl(null)
     }
 
     function editLongOneWord(inputStringArr: string) {
@@ -92,6 +99,8 @@ const Chat = (props: {
         setMessage("")
     }
 
+    console.log(messages.messages);
+
     return (
         <>
             <Box bgcolor={'#25334e78'} minHeight={'7vh'} width={'100%'} display={'flex'}>
@@ -102,18 +111,25 @@ const Chat = (props: {
                             {messages.chatName[0]}
                             <Fade in={showIconRename}>
                                 <IconButton color="inherit" onClick={handleClickOpen}
-                                            sx={{position: 'absolute', marginLeft: '5px', width: 15, height: 15}}
+                                            sx={{position: 'absolute', marginLeft: '5px', width: 19, height: 19}}
                                             aria-label="directions">
-                                    <EditIcon sx={{width: 15, height: 15}}/>
+                                    <EditIcon sx={{width: 19, height: 19}}/>
                                 </IconButton>
                             </Fade>
                         </Grid>
                     </Box>
                     <Box sx={{ml: 1, flex: 1}}/>
                     <Box sx={{p: '8px'}} alignSelf={'center'}>
-                        <IconButton color="primary" aria-label="directions">
-                            <SettingsSharpIcon/>
+                        <IconButton color="primary" onClick={handleOpenMenu} aria-label="directions">
+                            <SettingsSharpIcon />
                         </IconButton>
+                        <Menu
+                            anchorEl={anchorEl}
+                            open={openMenu}
+                            onClose={handleCloseMenu}
+                        >
+                            <MenuItem onClick={clearChatMessages}>Clear Chat</MenuItem>
+                        </Menu>
                         <RenameChat open={open} handleClose={handleClose} message={messages}/>
                         <IconButton color="primary">
                             <SearchOutlinedIcon/>
